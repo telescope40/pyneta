@@ -1,0 +1,46 @@
+## Netmiko1
+
+_author_ ='ldevicto'
+
+
+import netmiko
+import time
+import sys
+import getpass
+
+time == str(time.ctime())
+nexus_file = open('nxc021_22_snapshot.txt', 'w')
+
+template = {
+    'device_type':'cisco_ios_telnet',
+    'username':'ldevictoria',
+    'password':getpass(),
+    'global_delay_factor': 1,
+    'secret':getpass()
+    }
+
+switches = ['nxc021-l2.gsc.webair.net','nxc022-l2.gsc.webair.net']
+for i in switches:
+    try:
+        connection = netmiko.ConnectHandler(i ,**template)
+        print connection.find_prompt()
+        nexus_file.write (connection.send_command('show version'))
+        nexus_file.write (connection.send_command('show module'))
+        nexus_file.write (connection.send_command('show inventory'))
+        nexus_file.write (connection.send_command('show vPC'))
+        nexus_file.write (connection.send_command('show vPC role'))
+        nexus_file.write (connection.send_command('show port-channel summary'))
+        nexus_file.write (connection.send_command('show span sum'))
+        nexus_file.write (connection.send_command('show vlan sum'))
+        nexus_file.write (connection.send_command('show running-config'))
+        nexus_file.write (connection.send_command('show ip int brief vrf all'))
+        nexus_file.write (connection.send_command('show int status'))
+        nexus_file.write (connection.send_command('show cdp nei'))
+        nexus_file.write (connection.send_command('show trunk'))
+        nexus_file.write (connection.send_command('show port-channel capacity'))
+        print i + " Information Gathered"
+    except:
+        print i +"Unable to Access"
+connection.disconnect()
+nexus_file.close()
+    
