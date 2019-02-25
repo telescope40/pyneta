@@ -1,0 +1,38 @@
+# usr/bin/bash
+# Script for SCP Week 2 Kirk Byers Class
+
+_author_="ldevicto"
+import netmiko
+import getpass
+import sys
+
+password = "88newclass"
+host = (sys.argv[1])
+
+
+device = {
+"device_type":"cisco_nxos",
+"host":host,
+"username":"pyclass",
+"password":password,
+}
+
+
+source_file = "testx.txt"
+dest_file = "testx.txt"
+direction = "put"
+file_system = "bootflash:"
+
+#SCP works over the SSH Session
+#Create the Netmiko SSH Connection 
+
+net_connect = ConnectHandler(**device)
+transfer_dict = file_transfer(
+    ssh_conn,
+    source_file=source_file,
+    file_system = file_system,
+    direction=direction,
+    overwrite_file=True,
+)
+
+print(transfer_dict)
