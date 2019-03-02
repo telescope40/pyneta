@@ -1,0 +1,46 @@
+from netmiko import ConnectHandler as net_conn
+
+# RGEGEX
+# \d Digits 0-9
+# \s White Space Characters
+# \S non white space 
+# \w Alphanumeric including _ 
+# . any single character
+# * Repeated 0 or more times 
+# + 1 or more times
+# ^ Beginning of the line anchor 
+# $ End of line anchor 
+#
+# Greedy by default , try to grab as many characters as it can 
+#
+# Class4 / Textfsm Template Structure 
+#
+# TextFSM File 
+# Define your fields to extract
+# Value VAR_NAME (regex pattern)
+#
+# Start of the FSM
+# Start
+#   "device id' --> LLDP 
+#
+# LLDP
+#  ^$(VAR_NAME) .* --> Record the entry 
+# Implict EOF and Record 
+# EOF 
+#
+#Value INTERFACE (\S+)
+#Value IP_ADDR (\S+)
+#Value LINE_STATSUS(ip|down)
+#Value LINE_PROTOCOL (up|down)
+#
+#
+#Start
+# ^Interface.*Protocol\s*$$ -> ShowIPIntBrief
+#
+#ShowIPIntBrief
+# ^${INTERFACE}\s+${IP_ADDR}.*{LINE_STATUS}\s+${LINE_PROTOCOL}\s*$$ -> Record
+#
+#EOF 
+#
+#
+#
