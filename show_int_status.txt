@@ -1,0 +1,5 @@
+Port    Name               Status       Vlan       Duplex Speed Type
+Fa0                        notconnect   1            half     100 10/100BaseTX
+Fa1                        notconnect   1            auto    auto 10/100BaseTX
+Fa2                        notconnect   1            auto    auto 10/100BaseTX
+Fa3                        notconnect   1            auto    auto 10/100BaseTX

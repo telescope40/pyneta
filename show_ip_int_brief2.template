@@ -1,0 +1,23 @@
+Value PORT_NAME (\S+)
+Value STATUS (notconnect|connect)
+Value VLAN (\d)
+Value DUPLEX (auto|full|half)
+Value SPEED (auto|10|100)
+Value PORT_TYPE (10|100)
+
+
+Start
+  ^Port.*Name\s*$$ -> ShowInterfaceStatus
+
+ShowInterfaceStatus
+  ^${PORT_NAME}\s*{STATUS}\s*{DUPLEX}\s*{SPEED}\s*{PORT_TYPE} -> Record
+
+EOF
+
+#\s+${IP_ADDR}.*${STATUS}\s+${VLAN}\s*{DUPLEX}\s*$$
+#
+#Port    Name               Status       Vlan       Duplex Speed Type
+#Fa0                        notconnect   1            auto    auto 10/100BaseTX
+#Fa1                        notconnect   1            auto    auto 10/100BaseTX
+#Fa2                        notconnect   1            auto    auto 10/100BaseTX
+#Fa3                        notconnect   1            auto    auto 10/100BaseTX
